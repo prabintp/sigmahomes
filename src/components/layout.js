@@ -6,20 +6,39 @@
  */
 
 import React from "react"
-import { StaticQuery, graphql } from "gatsby"
+import { Link, StaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
+import { FaPhoneVolume } from 'react-icons/fa';
 
 import { Container, Row, Col } from "react-bootstrap"
 
-import Header from "./header"
+// import Header from "./header"
 import Navbar from "./navBar"
 
 const Layout = ({ children, pageInfo }) => (
   <StaticQuery
     query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
+      query {
+        logoImage:file(relativePath: { eq: "sigmaHomesLogo.png" }) {
+          childImageSharp {
+            # Specify the image processing specifications right in the query.
+            # Makes it trivial to update as your page's design changes.
+            fluid(maxWidth: 150) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+        allWordpressWpApiMenusMenusItems(filter: {name: {in: ["company"]}}) {
+          edges {
+            node {
+              items {
+                title
+                url
+                order
+                wordpress_id
+                object_slug
+              }
+            }
           }
         }
       }
@@ -27,11 +46,6 @@ const Layout = ({ children, pageInfo }) => (
     render={data => (
       <>
         <Container fluid className="px-0 main">
-          <Row noGutters className="justify-content-center">
-            <Col>
-              <Header siteTitle={data.site.siteMetadata.title} />
-            </Col>
-          </Row>
           <Navbar pageInfo={pageInfo} />
           <Row noGutters>
             <Col>
@@ -44,12 +58,39 @@ const Layout = ({ children, pageInfo }) => (
         <Container fluid className="px-0">
           <Row noGutters>
             <Col className="footer-col">
-              <footer>
-                <span>
-                  © {new Date().getFullYear()}, Built with
-                  {` `}
-                  <a href="https://www.gatsbyjs.org">Gatsby</a>
-                </span>
+              <footer className="py-4">
+
+                <Col  className="px-4 mb-4">
+                  <div className="logo">
+                  <Link to="/" className="link-no-style">
+                    <Img fluid={data.logoImage.childImageSharp.fluid} />
+                  </Link>
+                  </div>
+                  <h5 class="contactnumber">
+                  <FaPhoneVolume />+91 97 47012 377, 99 47012 377
+                  </h5>
+                  <h6 className="mb-2">
+                    © {new Date().getFullYear()} Sigma Homes, 
+                    All rights reserved.
+                  </h6>
+                 
+                </Col>
+                <Col className="mb-4" >
+                
+                 <h4>Company</h4> 
+                 
+                
+                 
+                </Col>
+
+                <Col className="mb-4">
+               <h4>Blog</h4>
+                  
+                
+                 
+                 </Col>
+
+
               </footer>
             </Col>
           </Row>

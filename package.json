@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-react-bootstrap",
+  "name": "Sigma homes",
   "private": true,
-  "description": "A starter that includes and configures react-bootstrap and react-icons, along with SASS handling. ",
+  "description": "gatsby wordpress data driven website",
   "version": "0.1.0",
-  "author": "Billy Jacoby <billyjacoby@gmail.com>",
+  "author": "Prabin TP <prabintp@gmail.com>",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "gatsby": "^2.3.34",
@@ -14,6 +14,7 @@
     "gatsby-plugin-sass": "^2.0.11",
     "gatsby-plugin-sharp": "^2.0.35",
     "gatsby-source-filesystem": "^2.0.33",
+    "gatsby-source-wordpress": "^3.1.65",
     "gatsby-transformer-sharp": "^2.1.18",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
@@ -21,7 +22,8 @@
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
-    "react-icons": "^3.6.1"
+    "react-icons": "^3.6.1",
+    "react-slick": "^0.25.2"
   },
   "devDependencies": {
     "gh-pages": "^2.0.1",
@@ -38,14 +40,15 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "gitdeploy": "gatsby build && gh-pages -d public -b master"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/prabintp/sigmahomes.git"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/prabintp/sigmahomes/issues"
   },
-  "homepage": "https://billyjacoby.github.io/gatsby-react-bootstrap-starter/"
+  "homepage": "https://github.com/prabintp"
 }

@@ -1,70 +1,116 @@
 import React from "react"
-import { Row, Col, Container, ListGroup } from "react-bootstrap"
-
+import { Row, Col} from "react-bootstrap"
+import { graphql, useStaticQuery } from 'gatsby'
 import Layout from "../components/layout"
+import ImgCarousel from "../components/imgCarousel"
+import ImgBanner from "../components/imgBannerComponent"
 import SEO from "../components/seo"
+import HeroComponent from '../components/heroComponent'
 
-const IndexPage = () => (
-  <Layout pageInfo={{ pageName: "index" }}>
-    <SEO title="Home" keywords={[`gatsby`, `react`, `bootstrap`]} />
-    <Container className="text-center">
-      <Row>
-        <Col>
-          <p>
-            This is a Gatsby Starter that I frequently use to get jump started
-            on quick website builds. It includes the following packages:
-          </p>
+const IndexPage = () => {
+
+  const data = useStaticQuery(
+    graphql`
+    query homeQuery {
+      allWordpressPage{
+        edges {
+          node {
+            excerpt
+            link
+            path
+            slug
+            title
+            content
+          }
+        }
+      }
+      
+      allWordpressPost{
+        edges {
+          node {
+            content
+            link
+            path
+            slug
+            title
+            excerpt
+            featured_media {
+              caption
+              source_url
+            }
+            categories
+          }
+        }
+      }
+    }
+    
+    `
+  )
+
+
+  const mainCarouselItems = data.allWordpressPost.edges.filter(({ node }) => node.categories[0] === 3);
+  const featureItems = data.allWordpressPost.edges.filter(({ node }) => node.categories[0] === 4);
+  const about = data.allWordpressPage.edges.filter(({ node }) => node.slug === 'about_sigma_homes')[0];
+
+  console.log(JSON.stringify(featureItems) + 'feature');
+  console.log(JSON.stringify(about) + 'abt');
+  return (
+    <Layout pageInfo={{ pageName: "index" }}>
+      <SEO title="Home" keywords={[`gatsby`, `react`, `bootstrap`]} />
+      <Row className="justify-content-center">
+        <Col md="9" className="imgResponsive">
+          <ImgCarousel items={mainCarouselItems} ></ImgCarousel>
         </Col>
       </Row>
-      <Row className="justify-content-center my-3">
+
+      <Row className="justify-content-center" style={{ marginTop: "-60px" }}>
+        <Col md="12" className="text-center">
+          <HeroComponent node={about.node} ctaLabel="More about Sigma homes" buttonStyle="primary" ></HeroComponent>
+        </Col>
+      </Row>
+
+      <Row className="my-4">
+
+      </Row>
+
+      <Row className="my-4">
+
+      </Row>
+      <Row className="my-4">
+
+      </Row>
+
+      <Row className="mb-3" className="justify-content-center">
         <Col md="6">
-          <ListGroup>
-            <ListGroup.Item
-              action
-              href="https://getbootstrap.com"
-              target="_blank"
-            >
-              Bootstrap
-            </ListGroup.Item>
-            <ListGroup.Item
-              action
-              href="https://react-bootstrap.github.io/"
-              target="_blank"
-            >
-              react-bootstrap
-            </ListGroup.Item>
-            <ListGroup.Item
-              action
-              href="https://react-icons.netlify.com"
-              target="_blank"
-            >
-              react-icons
-            </ListGroup.Item>
-            <ListGroup.Item
-              action
-              href="https://www.gatsbyjs.org/packages/gatsby-plugin-sass/"
-              target="_blank"
-            >
-              gatsby-plugin-sass
-            </ListGroup.Item>
-          </ListGroup>
+          <ImgBanner item={featureItems[0].node} ></ImgBanner>
+        </Col>
+
+        <Col  md="6">
+          <HeroComponent node={featureItems[0].node} ctaLabel="Read More" buttonStyle="link"  ></HeroComponent>
         </Col>
       </Row>
+
+      <Row className="my-4">
+
+      </Row>
+      <Row className="mb-3">
+
+
+        <Col className="text-center">
+          <HeroComponent node={featureItems[1].node} ctaLabel="Read More" buttonStyle="link" ></HeroComponent>
+        </Col>
+     
+      </Row>
+
       <Row>
-        <Col>
-          <p>
-            This starter also includes a navbar that sticks to the top of the
-            screen when the user scrolls past it, and a footer that stays at the
-            bottom of the screen.
-          </p>
-          <p>
-            For more documentation on these packages and how they work, please
-            refer to the pages linked in the list above.
-          </p>
+      <Col>
+          <ImgBanner item={featureItems[1].node} ></ImgBanner>
         </Col>
       </Row>
-    </Container>
-  </Layout>
-)
+
+
+    </Layout>
+  )
+}
 
 export default IndexPage

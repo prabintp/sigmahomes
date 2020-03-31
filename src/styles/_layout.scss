@@ -22,13 +22,25 @@ a.link-no-style {
     display: flex;
     position: relative;
     bottom: 0;
-    margin-top: -60px;
-    height: 60px;
+   // margin-top: -60px;
+   // height: 60px;
     clear: both;
-    background-color: $color-primary;
-    color: white;
+   
+    color: $color-primary;
     justify-content: center;
     width: 100%;
+    flex-direction: column;
+    background-color: #fafafb;
+    padding: 30px 0 5px;
+    border-top: 1px solid #eee;
+    .logo{
+      width: 150px;
+      margin-bottom: 10px;
+    }
+    .contactnumber{
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
 
     span {
       align-self: center;
@@ -36,3 +48,14 @@ a.link-no-style {
     }
   }
 }
+
+
+@media only screen and (min-width: 768px) {
+  .footer-col {
+    footer {
+      flex-direction: row;
+    }
+  }
+
+}
+
